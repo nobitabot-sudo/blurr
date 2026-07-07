@@ -125,7 +125,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No more daily limits - use Panda as much as you want"
+                        android:text="No more daily limits - use Zara as much as you want"
                         android:textColor="#CCCCCC"
                         android:textSize="14sp" />
 
