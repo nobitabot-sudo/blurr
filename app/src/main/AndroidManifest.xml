@@ -106,7 +106,7 @@
         <activity
             android:name=".PrivacyActivity"
             android:exported="false"
-            android:label="How Panda Remembers"
+            android:label="How Zara Remembers"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Blurr" />
         <activity
