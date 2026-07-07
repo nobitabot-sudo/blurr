@@ -43,7 +43,7 @@
             android:focusable="true"
             android:padding="8dp"
             android:fontFamily="@font/playfair_display"
-            android:text="@string/panda_not_working"
+            android:text="@string/zara_not_working"
             android:textColor="@color/accent"
             android:textSize="16sp"
             android:textStyle="bold" />
