@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Start using Panda to create your first moments!"
+            android:text="Start using Zara to create your first moments!"
             android:textColor="#BDBDBD"
             android:textSize="14sp" />
 
