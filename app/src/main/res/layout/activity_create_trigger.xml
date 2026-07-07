@@ -143,7 +143,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="To read notifications, Panda needs permission to access them."
+                        android:text="To read notifications, Zara needs permission to access them."
                         android:textColor="@color/white"/>
 
                     <Button
