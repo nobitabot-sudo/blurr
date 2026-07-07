@@ -4,19 +4,19 @@
     <string name="perform_task">Perform Task</string>
     <string name="content_filtering">Content Filtering</string>
     <string name="write_things_you_want_to_avoid">Write Things you want to avoid</string>
-    <string name="accessibility_service_label">Panda Accessibility Service</string>
-    <string name="accessibility_service_description">Panda AI Assistant uses accessibility services to provide voice-controlled device automation. This allows hands-free operation of your phone through AI-powered commands, making technology more accessible. The service reads screen content and performs actions only when actively requested by you.</string>
+    <string name="accessibility_service_label">Zara Accessibility Service</string>
+    <string name="accessibility_service_description">Zara AI Assistant uses accessibility services to provide voice-controlled device automation. This allows hands-free operation of your phone through AI-powered commands, making technology more accessible. The service reads screen content and performs actions only when actively requested by you.</string>
     <string name="view_source_code_on_github">⭐ See the code on Github</string>
-    <string name="hello_sir">Hey, Panda Here</string>
+    <string name="hello_sir">Hey, Zara Here</string>
     <string name="assistant_at_nyour_command">Assistant at\nYour Command</string>
     <string name="grant_accessibility_permission">Grant Accessibility Permission</string>
     <string name="permission_not_granted">Permission: Not Granted</string>
     <string name="service_status_stopped">Service Status: Stopped</string>
     <string name="wake_word_help_link"><u>Wake word not initializing? Open me!</u></string>
     <string name="notifications_permission_title">Notifications</string>
-    <string name="notifications_permission_desc">Allow Panda to send you notifications for important updates or messages.</string>
+    <string name="notifications_permission_desc">Allow Zara to send you notifications for important updates or messages.</string>
     <string name="default_assistant_role_title">Set as Default Assistant</string>
-    <string name="default_assistant_role_desc">This lets you activate Panda by holding the home button or using a voice command, even when the app is closed.</string>
+    <string name="default_assistant_role_desc">This lets you activate Zara by holding the home button or using a voice command, even when the app is closed.</string>
     <string name="grant_permission_button">Grant Permission</string>
     <string name="finish_onboarding_button">Finish Onboarding</string>
     <string name="vision_mode">Vision Mode:</string>
@@ -26,12 +26,12 @@
     <string name="screenshot_mode_description">Uses actual screenshots (more accurate, higher resource usage)</string>
     <string name="voice_input">Voice Command</string>
     <string name="hold_to_speak">Hold to Speak Command</string>
-    <string name="shortcut_wake_up_short">Wake up Panda</string>
-    <string name="shortcut_wake_up_long">Start a new conversation with Panda</string>
+    <string name="shortcut_wake_up_short">Wake up Zara</string>
+    <string name="shortcut_wake_up_long">Start a new conversation with Zara</string>
     <string name="listening">Listening…</string>
     <string name="speech_error">Speech recognition error</string>
     <string name="no_speech_detected">No speech detected</string>
-    <string name="input_box_hint">+ Ask Panda</string>
+    <string name="input_box_hint">+ Ask Zara</string>
     <string name="speech_permission_required">Microphone permission required for voice input</string>
     <string name="processing_voice_command">Processing voice command…</string>
     <string name="performing_task">I will perform the task: %s</string>
@@ -40,25 +40,25 @@
     <string name="dialogue_cancelled">Dialogue cancelled</string>
     <string name="submit_answer">Submit Answer</string>
     <string name="accessibility_permission_details">
-    "<b>🤖 Why Panda Needs Accessibility Services:</b>\n"
-    "Panda is an AI assistant that helps you control your phone through voice commands. To do this, it requires accessibility permissions to understand and interact with your device.\n\n"
+    "<b>🤖 Why Zara Needs Accessibility Services:</b>\n"
+    "Zara is an AI assistant that helps you control your phone through voice commands. To do this, it requires accessibility permissions to understand and interact with your device.\n\n"
     "<b>📱 What This Permission Allows:</b>\n"
-    "<b>• Read Screen Content:</b> Panda can see and analyze what\'s currently displayed on your screen to understand the context and provide relevant assistance.\n\n"
+    "<b>• Read Screen Content:</b> Zara can see and analyze what\'s currently displayed on your screen to understand the context and provide relevant assistance.\n\n"
     "<b>• Perform Actions:</b> Execute touch gestures, taps, swipes, and navigation (Back, Home, Recent Apps) on your behalf based on your voice commands.\n\n"
     "<b>• App Interaction:</b> Open apps, fill forms, scroll through content, and navigate between different screens as requested.\n\n"
     "<b>🔒 Privacy &amp; Data Protection:</b>\n"
     "• All processing happens on Gemini API\n"
     "• No personal data is collected or but it is sent to Google Gemini\n"
-    "• Screen content is only accessed when you actively use Panda, otherwise Panda doesnt access screen content\n"
-    "• We implement safeguards to protect sensitive information, but Panda can still make mistake\n\n"
+    "• Screen content is only accessed when you actively use Zara, otherwise Panda doesnt access screen content\n"
+    "• We implement safeguards to protect sensitive information, but Zara can still make mistake\n\n"
     "<b>♿ Accessibility Benefits:</b>\n"
     "This service enables hands-free device control, making smartphones more accessible for users with disabilities, visual impairments, or mobility limitations.\n\n"
-    "<b>By proceeding, you understand and consent to Panda using accessibility services for AI-powered device automation.</b>"
+    "<b>By proceeding, you understand and consent to Zara using accessibility services for AI-powered device automation.</b>"
     </string>
     <string name="app_list_permission_title">App Management</string>
-    <string name="app_list_permission_desc">Allows Panda to see the apps you have installed. With this, Panda can open applications for you directly and instantly (e.g., "Open YouTube"), instead of relying on slower methods of searching the screen. This makes the process much faster and more reliable.</string>
+    <string name="app_list_permission_desc">Allows Zara to see the apps you have installed. With this, Panda can open applications for you directly and instantly (e.g., "Open YouTube"), instead of relying on slower methods of searching the screen. This makes the process much faster and more reliable.</string>
 <!--    <string name="accessibility_consent_title">Permission Confirmation</string>-->
-<!--    <string name="accessibility_consent_message">To enable hands-free control, Panda requires Accessibility permission. This allows the app to:\n\n• <b>Read the content on your screen</b> to understand context.\n\n• <b>Perform actions for you</b> like tapping, scrolling, and navigating.\n\nPanda is designed to assist, especially visually impaired users, by enabling full voice control of the device.\n\nDo you want to proceed to Settings to enable this?</string>-->
+<!--    <string name="accessibility_consent_message">To enable hands-free control, Zara requires Accessibility permission. This allows the app to:\n\n• <b>Read the content on your screen</b> to understand context.\n\n• <b>Perform actions for you</b> like tapping, scrolling, and navigating.\n\nPanda is designed to assist, especially visually impaired users, by enabling full voice control of the device.\n\nDo you want to proceed to Settings to enable this?</string>-->
 <!--    <string name="accept">Accept</string>-->
 <!--    <string name="decline">Decline</string>-->
     <string name="cancel">Cancel</string>
@@ -67,7 +67,7 @@
     <string name="enable_wake_word">Enable Wake Word</string>
     <string name="wake_word_engine">Wake Word Engine</string>
     <string name="stt_engine">STT Engine</string>
-    <string name="porcupine_engine">If there is too much demand, our wake word service might be down, in that case we will add button at the bottom left and you can use it to activate panda</string>
+    <string name="porcupine_engine">If there is too much demand, our wake word service might be down, in that case we will add button at the bottom left and you can use it to activate zara</string>
     <string name="select_wake_word_engine">Select Wake Word Engine</string>
     <string name="wake_word_enabled">Wake Word enabled with %s</string>
     <string name="wake_word_disabled">Disable Wake Word</string>
@@ -93,19 +93,19 @@
     <string name="why_permissions_needed"><u>Why are these permissions needed?</u></string>
     <string name="permissions_explained_title">Permissions Explained</string>
     <string name="accessibility_permission_title">Accessibility Service</string>
-    <string name="accessibility_permission_desc">🤖 Enable Panda AI to control your phone through voice commands. This permission allows reading screen content and performing actions for hands-free device automation and improved accessibility.</string>
+    <string name="accessibility_permission_desc">🤖 Enable Zara AI to control your phone through voice commands. This permission allows reading screen content and performing actions for hands-free device automation and improved accessibility.</string>
     <string name="microphone_permission_title">Microphone</string>
-    <string name="microphone_permission_desc">The microphone is required for the voice command and wake-word features. It allows you to give instructions to Panda by speaking.</string>
+    <string name="microphone_permission_desc">The microphone is required for the voice command and wake-word features. It allows you to give instructions to Zara by speaking.</string>
     <string name="overlay_permission_title">Display Over Other Apps</string>
-    <string name="overlay_permission_desc">This permission is used to show visual feedback, such as the questions that panda have, captions and the voice wave animations, on top of other apps while Panda is working.</string>
+    <string name="overlay_permission_desc">This permission is used to show visual feedback, such as the questions that zara have, captions and the voice wave animations, on top of other apps while Panda is working.</string>
     <string name="default_assistant_permission_title">Default Assistant</string>
     <string name="grant_default_assistant_permission_button">Set as Default Assistant</string>
-    <string name="at_the_end_of_a_conversation_panda_s_ai_powered_by_google_s_gemini_model_analyzes_the_dialogue_to_identify_lasting_facts_it_s_trained_to_ignore_fleeting_or_unimportant_details_for_example_if_you_say_remind_me_to_call_my_brother_ankit_tomorrow_the_ai_might_create_a_memory_like_the_user_s_brother_is_named_ankit">At the end of a conversation, Panda\'s AI (powered by Google\'s Gemini model) analyzes the dialogue to identify lasting facts. It\'s trained to ignore fleeting or unimportant details. For example, if you say, || remind me to call my brother Ankit tomorrow ||,the AI might create a memory like: || The user\'s brother is named Anita. ||</string>
-    <string name="once_a_memory_is_created_e_g_the_user_lives_in_ghaziabad_it_is_stored_in_a_secure_private_database_directly_on_your_phone_this_database_is_part_of_the_panda_app_s_internal_storage_and_is_not_accessible_by_other_apps">Once a memory is created (e.g., The user lives in Ghaziabad.), it is stored in a secure, private database directly on your phone. This database is part of the Panda app\'s internal storage and is not accessible by other apps.</string>
-    <string name="accessibility_permission_full_desc">🤖 Panda is an AI assistant that needs accessibility services to control your phone through voice commands.\n\nThis permission allows Panda to:\n\n• Read screen content to understand context\n• Perform touches, swipes, and navigation\n• Automate tasks across all apps\n\n🔒 Your privacy is Google Privacy Rule for Gemini API - Your app calls Gemini API to understand his next action.</string>
+    <string name="at_the_end_of_a_conversation_zara_s_ai_powered_by_google_s_gemini_model_analyzes_the_dialogue_to_identify_lasting_facts_it_s_trained_to_ignore_fleeting_or_unimportant_details_for_example_if_you_say_remind_me_to_call_my_brother_ankit_tomorrow_the_ai_might_create_a_memory_like_the_user_s_brother_is_named_ankit">At the end of a conversation, Zara\'s AI (powered by Google\'s Gemini model) analyzes the dialogue to identify lasting facts. It\'s trained to ignore fleeting or unimportant details. For example, if you say, || remind me to call my brother Ankit tomorrow ||,the AI might create a memory like: || The user\'s brother is named Anita. ||</string>
+    <string name="once_a_memory_is_created_e_g_the_user_lives_in_ghaziabad_it_is_stored_in_a_secure_private_database_directly_on_your_phone_this_database_is_part_of_the_zara_app_s_internal_storage_and_is_not_accessible_by_other_apps">Once a memory is created (e.g., The user lives in Ghaziabad.), it is stored in a secure, private database directly on your phone. This database is part of the Zara app\'s internal storage and is not accessible by other apps.</string>
+    <string name="accessibility_permission_full_desc">🤖 Zara is an AI assistant that needs accessibility services to control your phone through voice commands.\n\nThis permission allows Panda to:\n\n• Read screen content to understand context\n• Perform touches, swipes, and navigation\n• Automate tasks across all apps\n\n🔒 Your privacy is Google Privacy Rule for Gemini API - Your app calls Gemini API to understand his next action.</string>
 
     <string name="accessibility_consent_title">🤖 Accessibility Services Required</string>
-    <string name="accessibility_consent_message">Panda requires accessibility services to function as your AI assistant.\n\nThis enables voice-controlled automation of your device for hands-free operation and improved accessibility.\n\n🔒 All data processing occurs locally on your device for maximum privacy.</string>
+    <string name="accessibility_consent_message">Zara requires accessibility services to function as your AI assistant.\n\nThis enables voice-controlled automation of your device for hands-free operation and improved accessibility.\n\n🔒 All data processing occurs locally on your device for maximum privacy.</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
 
