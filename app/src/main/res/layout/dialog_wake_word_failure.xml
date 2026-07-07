@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
-            android:text="How to Wake Up Panda"
+            android:text="How to Wake Up Zara"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="If you've set Panda as your default assistant, you can long-press the power button (or home button on some devices) to activate it."
+            android:text="If you've set Zara as your default assistant, you can long-press the power button (or home button on some devices) to activate it."
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Add the Panda widget to your home screen for one-tap access. Here's how:"
+            android:text="Add the Zara widget to your home screen for one-tap access. Here's how:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
         <androidx.cardview.widget.CardView
             android:id="@+id/video_container_card"
@@ -63,13 +63,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3. Enable 'Hey Panda' Wake Word"
+            android:text="3. Enable 'Hey Zara' Wake Word"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="To use the 'Hey Panda' voice command, you need to set it up manually with a Picovoice API key:\n\n1. Go to Settings in this app.\n2. Go to the Picovoice console.\n3. Copy your API access key from the console.\n4. Paste the key back into the app's settings.\n5. Press the 'Save' button.\n6. Return to the home screen and press 'Enable Wake Word'."
+            android:text="To use the 'Hey Zara' voice command, you need to set it up manually with a Picovoice API key:\n\n1. Go to Settings in this app.\n2. Go to the Picovoice console.\n3. Copy your API access key from the console.\n4. Paste the key back into the app's settings.\n5. Press the 'Save' button.\n6. Return to the home screen and press 'Enable Wake Word'."
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:lineSpacingExtra="4dp"/>
 
