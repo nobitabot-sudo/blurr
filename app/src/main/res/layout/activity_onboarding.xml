@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:contentDescription="Zara logo"
-        android:src="@drawable/zara_logo" />
+        android:src="@drawable/panda_logo" />
 
     <TextView
         android:id="@+id/inviteMessage"
