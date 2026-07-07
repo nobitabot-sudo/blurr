@@ -13,8 +13,8 @@
         android:layout_height="96dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:contentDescription="Panda logo"
-        android:src="@drawable/panda_logo" />
+        android:contentDescription="Zara logo"
+        android:src="@drawable/zara_logo" />
 
     <TextView
         android:id="@+id/inviteMessage"
