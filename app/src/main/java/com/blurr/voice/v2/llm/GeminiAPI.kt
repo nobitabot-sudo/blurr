@@ -50,9 +50,10 @@ class GeminiApi(
         private val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
     }
 
-    private val proxyUrl: String = BuildConfig.GCLOUD_PROXY_URL
-    private val proxyKey: String = BuildConfig.GCLOUD_PROXY_URL_KEY
-
+    private val proxyUrl: String
+    get() = com.blurr.voice.utilities.ProxyConfig.getUrl(context)
+private val proxyKey: String
+    get() = com.blurr.voice.utilities.ProxyConfig.getKey(context)
     private val httpClient = OkHttpClient()
 
     private val jsonParser = Json {
