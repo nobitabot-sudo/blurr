@@ -497,6 +497,40 @@ class MainActivity : BaseNavigationActivity() {
             val tasksLeft = freemiumManager.getTasksRemaining()
             tasksLeftText.text = "$tasksLeft tasks left"
         }
+    @SuppressLint("SetTextI18n")
+    private fun updateUI() {
+        val allPermissionsGranted = permissionManager.areAllPermissionsGranted()
+        if (allPermissionsGranted) {
+            tvPermissionStatus.text = "All required permissions are granted."
+            tvPermissionStatus.visibility = View.GONE
+            managePermissionsButton.visibility = View.GONE
+            tvPermissionStatus.setTextColor(Color.parseColor("#4CAF50")) // Green
+            permissionsTag.visibility = View.VISIBLE
+        } else {
+            tvPermissionStatus.text = "Some permissions are missing. Tap below to manage."
+            tvPermissionStatus.setTextColor(Color.parseColor("#F44336")) // Red
+            permissionsTag.visibility = View.GONE
+        }
+    }
+
+    private fun isThisAppDefaultAssistant(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val rm = getSystemService(RoleManager::class.java)
+            rm?.isRoleHeld(RoleManager.ROLE_ASSISTANT) == true
+        } else {
+            val flat = Settings.Secure.getString(contentResolver, "voice_interaction_service")
+            val currentPkg = flat?.substringBefore('/')
+            currentPkg == packageName
+        }
+    }
+
+    private fun updateDefaultAssistantButtonVisibility() {
+        val btn = findViewById<TextView>(R.id.btn_set_default_assistant)
+        btn.visibility = if (isThisAppDefaultAssistant()) View.GONE else View.VISIBLE
+    }
+
+    private fun showLoading(show: Boolean) {
+        loadingOverlay.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun updateBillingStatus() {
