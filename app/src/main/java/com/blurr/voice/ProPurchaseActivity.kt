@@ -7,6 +7,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 
 class ProPurchaseActivity : BaseNavigationActivity() {
+    override fun getContentLayoutId(): Int = R.layout.activity_pro_purchase
+    override fun getCurrentNavItem(): NavItem = NavItem.UPGRADE
 
     private lateinit var priceTextView: TextView
     private lateinit var purchaseButton: Button
