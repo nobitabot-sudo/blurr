@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "732042652017",
+    "project_id": "zara-8c9ef",
+    "storage_bucket": "zara-8c9ef.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732042652017:android:b583ac6e27f770f0df2ed0",
+        "android_client_info": {
+          "package_name": "com.blurr.voice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732042652017-2g518knb1ppvrd86qfvj9cct169uriek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuFwODsdpJH_YPKETE7dvnHvO8M-Mxzos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732042652017-2g518knb1ppvrd86qfvj9cct169uriek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
