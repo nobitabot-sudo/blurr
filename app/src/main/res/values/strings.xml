@@ -111,7 +111,7 @@
 
     
     <!-- Battery optimization help -->
-    <string name="panda_not_working"><u>Panda not working on your phone?</u></string>
+    <string name="zara_not_working"><u>Panda not working on your phone?</u></string>
     <string name="battery_optimization_title">Battery Optimization Issues</string>
     <string name="battery_optimization_message">If Panda is not working properly, this might be due to intense battery optimization by your device manufacturer.\n\nManufacturers like Samsung, Huawei, OnePlus, Xiaomi, and others often add aggressive battery optimizations that can break Panda\'s functionality.\n\nTo fix this, you need to disable battery optimizations specifically for Panda in your device settings.</string>
     <string name="learn_how">Learn How</string>
