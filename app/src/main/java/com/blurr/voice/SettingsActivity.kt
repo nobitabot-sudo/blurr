@@ -42,6 +42,9 @@ class SettingsActivity : BaseNavigationActivity() {
     private lateinit var editUserName: android.widget.EditText
     private lateinit var editUserEmail: android.widget.EditText
     private lateinit var editWakeWordKey: android.widget.EditText
+    private lateinit var editProxyUrl: android.widget.EditText
+    private lateinit var editProxyKey: android.widget.EditText
+    private lateinit var saveProxyButton: TextView
     private lateinit var textGetPicovoiceKeyLink: TextView
     private lateinit var wakeWordButton: TextView
     private lateinit var buttonSignOut: Button
@@ -108,6 +111,11 @@ class SettingsActivity : BaseNavigationActivity() {
         batteryOptimizationHelpButton = findViewById(R.id.batteryOptimizationHelpButton)
       
         editWakeWordKey = findViewById(R.id.editWakeWordKey)
+        editProxyUrl = findViewById(R.id.editProxyUrl)
+        editProxyKey = findViewById(R.id.editProxyKey)
+        saveProxyButton = findViewById(R.id.saveProxyButton)
+        editProxyUrl.setText(com.blurr.voice.utilities.ProxyConfig.getUrl(this))
+        editProxyKey.setText(com.blurr.voice.utilities.ProxyConfig.getKey(this))
         wakeWordButton = findViewById(R.id.wakeWordButton)
 
         buttonSignOut = findViewById(R.id.buttonSignOut)
@@ -183,6 +191,14 @@ class SettingsActivity : BaseNavigationActivity() {
                 Log.e("SettingsActivity", "Failed to open Picovoice link", e)
             }
         }
+
+        saveProxyButton.setOnClickListener {
+    val url = editProxyUrl.text.toString().trim()
+    val key = editProxyKey.text.toString().trim()
+    com.blurr.voice.utilities.ProxyConfig.saveUrl(this, url)
+    com.blurr.voice.utilities.ProxyConfig.saveKey(this, key)
+    Toast.makeText(this, "Proxy settings saved.", Toast.LENGTH_SHORT).show()
+}
 
 
         buttonSignOut.setOnClickListener {
