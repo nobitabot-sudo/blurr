@@ -69,7 +69,7 @@ class EnhancedWakeWordService : Service() {
         val engineName = if (usePorcupine) "Porcupine" else "STT"
         val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Blurr Wake Word")
-            .setContentText("Listening for 'Panda' with Porcupine engine...")
+            .setContentText("Listening for 'Zara' with Porcupine engine...")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentIntent(pendingIntent)
             .build()
@@ -98,7 +98,7 @@ class EnhancedWakeWordService : Service() {
                 val serviceIntent = Intent(this, ConversationalAgentService::class.java)
                 ContextCompat.startForegroundService(this, serviceIntent)
 
-                Toast.makeText(this, "Panda listening...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Zara listening...", Toast.LENGTH_SHORT).show()
             } else {
                 Log.d("EnhancedWakeWordService", "Conversational agent is already running.")
             }
