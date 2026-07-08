@@ -50,7 +50,7 @@ class WakeWordService : Service() {
 
         val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Blurr Wake Word")
-            .setContentText("Listening for 'Panda'...")
+            .setContentText("Listening for 'Zara'...")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentIntent(pendingIntent)
             .build()
