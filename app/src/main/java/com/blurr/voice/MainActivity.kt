@@ -497,6 +497,7 @@ class MainActivity : BaseNavigationActivity() {
             val tasksLeft = freemiumManager.getTasksRemaining()
             tasksLeftText.text = "$tasksLeft tasks left"
         }
+    }
     @SuppressLint("SetTextI18n")
     private fun updateUI() {
         val allPermissionsGranted = permissionManager.areAllPermissionsGranted()
