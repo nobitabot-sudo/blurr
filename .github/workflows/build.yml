@@ -26,10 +26,8 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon
 
-      - name: Get Debug SHA-1 Fingerprint
-        run: |
-          keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android || true
-
+      - - name: Get Debug SHA-1 Fingerprint
+        run: ./gradlew signingReport --no-daemon
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
