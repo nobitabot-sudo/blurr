@@ -117,12 +117,17 @@ private val proxyKey: String
                 Log.e(TAG, errorMsg)
                 throw IOException(errorMsg)
             }
-            val content = JSONObject(responseBodyString)
+            var content = JSONObject(responseBodyString)
                 .getJSONArray("choices")
                 .getJSONObject(0)
                 .getJSONObject("message")
                 .getString("content")
-            Log.d(TAG, "Successfully received response from proxy.")
+            content = content.trim()
+                .removePrefix("```json")
+                .removePrefix("```")
+                .removeSuffix("```")
+                .trim()
+            Log.d(TAG, "Successfully received response from proxy: $content")
             return content
         }
     }
