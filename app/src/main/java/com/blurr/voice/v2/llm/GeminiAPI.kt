@@ -24,23 +24,9 @@ import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Duration.Companion.seconds
 
-/**
- * A modern, robust Gemini API client using the official Google AI SDK.
- *
- * This client features:
- * - Conversion of internal message formats to the SDK's `Content` format.
- * - API key management and rotation via an injectable [ApiKeyManager].
- * - An idiomatic, exponential backoff retry mechanism for API calls.
- * - Efficient caching of `GenerativeModel` instances to reduce overhead.
- * - Structured JSON output enforcement using `response_schema`.
- *
- * @property modelName The name of the Gemini model to use (e.g., "gemini-1.5-flash").
- * @property apiKeyManager An instance of [ApiKeyManager] to handle API key retrieval.
- * @property maxRetry The maximum number of times to retry a failed API call.
- */
 class GeminiApi(
     private val modelName: String,
-    private val apiKeyManager: ApiKeyManager, // Injected dependency
+    private val apiKeyManager: ApiKeyManager,
     private val context: Context,
     private val maxRetry: Int = 3
 ) {
@@ -62,32 +48,19 @@ private val proxyKey: String
         coerceInputValues = true
     }
 
-    // Cache for GenerativeModel instances to avoid repeated initializations.
     private val modelCache = ConcurrentHashMap<String, GenerativeModel>()
-
-
 
     private val jsonGenerationConfig = GenerationConfig.builder().apply {
         responseMimeType = "application/json"
-//        responseSchema = agentOutputSchema
     }.build()
 
     private val requestOptions = RequestOptions(timeout = 60.seconds)
 
-
-    /**
-     * Generates a structured response from the Gemini model and parses it into an [AgentOutput] object.
-     * This is the primary public method for this class.
-     *
-     * @param messages The list of [GeminiMessage] objects for the prompt.
-     * @return An [AgentOutput] object on success, or null if the API call or parsing fails after all retries.
-     */
     suspend fun generateAgentOutput(messages: List<GeminiMessage>): AgentOutput? {
         val jsonString = retryWithBackoff(times = maxRetry) {
             performApiCall(messages)
         } ?: return null
 
-        // Log the task
         try {
             val input = jsonParser.encodeToString(messages)
             TaskLogger.log(context, input, jsonString)
@@ -105,10 +78,6 @@ private val proxyKey: String
         }
     }
 
-    /**
-     * AUTOMATIC DISPATCHER: Checks internal config and decides whether to use
-     * the secure proxy or a direct API call.
-     */
     private suspend fun performApiCall(messages: List<GeminiMessage>): String {
         return if (!proxyUrl.isNullOrBlank() && !proxyKey.isNullOrBlank()) {
             Log.i(TAG, "Proxy config found. Using secure Cloud Function.")
@@ -119,24 +88,26 @@ private val proxyKey: String
         }
     }
 
-    /**
-     * PROXY MODE: Performs the API call through the secure Google Cloud Function.
-     */
     private suspend fun performProxyApiCall(messages: List<GeminiMessage>): String {
-        val proxyMessages = messages.map {
-            ProxyRequestMessage(
-                role = it.role.name.lowercase(),
-                parts = it.parts.filterIsInstance<TextPart>().map { part -> ProxyRequestPart(part.text) }
-            )
+        val openAiMessages = messages.map { msg ->
+            val combinedText = msg.parts.filterIsInstance<TextPart>().joinToString("\n") { it.text }
+            val role = if (msg.role.name.lowercase() == "model") "assistant" else "user"
+            OpenAIMessage(role = role, content = combinedText)
         }
-        val requestPayload = ProxyRequestBody(modelName, proxyMessages)
-        val jsonBody = jsonParser.encodeToString(ProxyRequestBody.serializer(), requestPayload)
+        val requestPayload = OpenAIRequestBody(model = "auto", messages = openAiMessages)
+        val jsonBody = jsonParser.encodeToString(OpenAIRequestBody.serializer(), requestPayload)
+
+        val endpoint = if (proxyUrl.endsWith("/chat/completions")) {
+            proxyUrl
+        } else {
+            proxyUrl.trimEnd('/') + "/chat/completions"
+        }
 
         val request = Request.Builder()
-            .url(proxyUrl)
+            .url(endpoint)
             .post(jsonBody.toRequestBody(JSON_MEDIA_TYPE))
             .addHeader("Content-Type", "application/json")
-            .addHeader("X-API-Key", proxyKey)
+            .addHeader("Authorization", "Bearer $proxyKey")
             .build()
 
         httpClient.newCall(request).execute().use { response ->
@@ -146,14 +117,16 @@ private val proxyKey: String
                 Log.e(TAG, errorMsg)
                 throw IOException(errorMsg)
             }
+            val content = JSONObject(responseBodyString)
+                .getJSONArray("choices")
+                .getJSONObject(0)
+                .getJSONObject("message")
+                .getString("content")
             Log.d(TAG, "Successfully received response from proxy.")
-            return responseBodyString
+            return content
         }
     }
 
-    /**
-     * DIRECT MODE: Performs the API call using the embedded Google AI SDK.
-     */
     private suspend fun performDirectApiCall(messages: List<GeminiMessage>): String {
         val apiKey = apiKeyManager.getNextKey()
         val generativeModel = modelCache.getOrPut(apiKey) {
@@ -175,9 +148,6 @@ private val proxyKey: String
         throw ContentBlockedException("Blocked or empty response from API. Reason: $reason")
     }
 
-    /**
-     * Converts the internal `List<GeminiMessage>` to the `List<Content>` required by the Google AI SDK.
-     */
     private fun convertToSdkHistory(messages: List<GeminiMessage>): List<Content> {
         return messages.map { message ->
             val role = when (message.role) {
@@ -194,27 +164,17 @@ private val proxyKey: String
                             Log.d("GEMINIAPITEMP_INPUT", part.text)
                         }
                     }
-                    // Handle other part types like images here if needed in the future.
                 }
             }
         }
     }
 
-    /**
-     * WORKAROUND: Generates content using a direct REST API call to enable Google Search grounding.
-     * This should be used for queries requiring real-time information until the Kotlin SDK
-     * officially supports the search tool.
-     *
-     * @param prompt The user's text prompt.
-     * @return The generated text content as a String, or null on failure.
-     */
     suspend fun generateGroundedContent(prompt: String): String? {
-        val apiKey = apiKeyManager.getNextKey() // Reuse your existing key manager
+        val apiKey = apiKeyManager.getNextKey()
 
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val url = "https://generativelanguage.googleapis.com/v1beta/models/$modelName:generateContent"
 
-        // 1. Manually construct the JSON body to include the "google_search" tool
         val jsonBody = """
         {
           "contents": [
@@ -249,7 +209,6 @@ private val proxyKey: String
                 return null
             }
 
-            // 2. Parse the JSON response to extract the model's text output
             val text = JSONObject(responseBody)
                 .getJSONArray("candidates")
                 .getJSONObject(0)
@@ -278,26 +237,18 @@ private data class ProxyRequestMessage(val role: String, val parts: List<ProxyRe
 @Serializable
 private data class ProxyRequestBody(val modelName: String, val messages: List<ProxyRequestMessage>)
 
+@Serializable
+private data class OpenAIMessage(val role: String, val content: String)
 
-/**
- * Custom exception to indicate that the response content was blocked by the API.
- */
+@Serializable
+private data class OpenAIRequestBody(val model: String, val messages: List<OpenAIMessage>, val temperature: Double = 0.7)
+
 class ContentBlockedException(message: String) : Exception(message)
 
-/**
- * A higher-order function that provides a generic retry mechanism with exponential backoff.
- *
- * @param times The maximum number of retry attempts.
- * @param initialDelay The initial delay in milliseconds before the first retry.
- * @param maxDelay The maximum delay in milliseconds.
- * @param factor The multiplier for the delay on each subsequent retry.
- * @param block The suspend block of code to execute and retry on failure.
- * @return The result of the block if successful, or null if all retries fail.
- */
 private suspend fun <T> retryWithBackoff(
     times: Int,
-    initialDelay: Long = 1000L, // 1 second
-    maxDelay: Long = 16000L,   // 16 seconds
+    initialDelay: Long = 1000L,
+    maxDelay: Long = 16000L,
     factor: Double = 2.0,
     block: suspend () -> T
 ): T? {
@@ -309,11 +260,11 @@ private suspend fun <T> retryWithBackoff(
             Log.e("RetryUtil", "Attempt ${attempt + 1}/$times failed: ${e.message}", e)
             if (attempt == times - 1) {
                 Log.e("RetryUtil", "All $times retry attempts failed.")
-                return null // All retries failed
+                return null
             }
             delay(currentDelay)
             currentDelay = (currentDelay * factor).toLong().coerceAtMost(maxDelay)
         }
     }
-    return null // Should not be reached
+    return null
 }
