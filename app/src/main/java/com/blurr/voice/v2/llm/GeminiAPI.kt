@@ -89,46 +89,60 @@ private val proxyKey: String
     }
 
     private suspend fun performProxyApiCall(messages: List<GeminiMessage>): String {
-        val openAiMessages = messages.map { msg ->
-            val combinedText = msg.parts.filterIsInstance<TextPart>().joinToString("\n") { it.text }
-            val role = if (msg.role.name.lowercase() == "model") "assistant" else "user"
-            OpenAIMessage(role = role, content = combinedText)
+        android.os.Handler(android.os.Looper.getMainLooper()).post {
+            android.widget.Toast.makeText(
+                context,
+                "URL: $proxyUrl | Key length: ${proxyKey.length}",
+                android.widget.Toast.LENGTH_LONG
+            ).show()
         }
-        val requestPayload = OpenAIRequestBody(model = "auto", messages = openAiMessages)
-        val jsonBody = jsonParser.encodeToString(OpenAIRequestBody.serializer(), requestPayload)
-
-        val endpoint = if (proxyUrl.endsWith("/chat/completions")) {
-            proxyUrl
-        } else {
-            proxyUrl.trimEnd('/') + "/chat/completions"
-        }
-
-        val request = Request.Builder()
-            .url(endpoint)
-            .post(jsonBody.toRequestBody(JSON_MEDIA_TYPE))
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Authorization", "Bearer $proxyKey")
-            .build()
-
-        httpClient.newCall(request).execute().use { response ->
-            val responseBodyString = response.body?.string()
-            if (!response.isSuccessful || responseBodyString.isNullOrBlank()) {
-                val errorMsg = "Proxy API call failed with code: ${response.code}, body: $responseBodyString"
-                Log.e(TAG, errorMsg)
-                throw IOException(errorMsg)
+        try {
+            val openAiMessages = messages.map { msg ->
+                val combinedText = msg.parts.filterIsInstance<TextPart>().joinToString("\n") { it.text }
+                val role = if (msg.role.name.lowercase() == "model") "assistant" else "user"
+                OpenAIMessage(role = role, content = combinedText)
             }
-            var content = JSONObject(responseBodyString)
-                .getJSONArray("choices")
-                .getJSONObject(0)
-                .getJSONObject("message")
-                .getString("content")
-            content = content.trim()
-                .removePrefix("```json")
-                .removePrefix("```")
-                .removeSuffix("```")
-                .trim()
-            Log.d(TAG, "Successfully received response from proxy: $content")
-            return content
+            val requestPayload = OpenAIRequestBody(model = "openrouter/free", messages = openAiMessages)
+            val jsonBody = jsonParser.encodeToString(OpenAIRequestBody.serializer(), requestPayload)
+
+            val endpoint = if (proxyUrl.endsWith("/chat/completions")) {
+                proxyUrl
+            } else {
+                proxyUrl.trimEnd('/') + "/chat/completions"
+            }
+
+            val request = Request.Builder()
+                .url(endpoint)
+                .post(jsonBody.toRequestBody(JSON_MEDIA_TYPE))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer $proxyKey")
+                .build()
+
+            httpClient.newCall(request).execute().use { response ->
+                val responseBodyString = response.body?.string()
+                if (!response.isSuccessful || responseBodyString.isNullOrBlank()) {
+                    val errorMsg = "Proxy API call failed with code: ${response.code}, body: $responseBodyString"
+                    Log.e(TAG, errorMsg)
+                    throw IOException(errorMsg)
+                }
+                var content = JSONObject(responseBodyString)
+                    .getJSONArray("choices")
+                    .getJSONObject(0)
+                    .getJSONObject("message")
+                    .getString("content")
+                content = content.trim()
+                    .removePrefix("```json")
+                    .removePrefix("```")
+                    .removeSuffix("```")
+                    .trim()
+                Log.d(TAG, "Successfully received response from proxy: $content")
+                return content
+            }
+        } catch (e: Exception) {
+            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                android.widget.Toast.makeText(context, "Proxy Error: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
+            }
+            throw e
         }
     }
 
