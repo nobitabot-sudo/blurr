@@ -207,6 +207,7 @@ class AgentService : Service() {
                 Log.i(TAG, "Task completed successfully: $task")
             } catch (e: Exception) {
                 Log.e(TAG, "Task failed with an exception: $task", e)
+                com.blurr.voice.v2.logging.TaskLogger.log(this@AgentService, "TASK_CRASH", "Task '$task' crashed: ${e.javaClass.simpleName} - ${e.message}\n\n${e.stackTraceToString().take(1500)}")
                 trackTaskCompletion(task, false, e.message)
                 // Optionally update notification to show error state
             }
