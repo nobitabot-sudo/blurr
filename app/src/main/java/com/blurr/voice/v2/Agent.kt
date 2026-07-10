@@ -86,6 +86,7 @@ class Agent(
             // --- Handle LLM Failure ---
             if (agentOutput == null) {
                 Log.d(TAG,"❌ LLM failed to return a valid action. Retrying...")
+                com.blurr.voice.v2.logging.TaskLogger.log(context, "LLM_FAILURE", "Attempt ${state.consecutiveFailures + 1}: generateAgentOutput returned null (check proxy URL/key/network)")
                 state.consecutiveFailures++
                 // Add a corrective message for the next attempt.
                 memoryManager.addContextMessage(GeminiMessage(text = "System Note: Your previous output was not valid JSON. Please ensure your response is correctly formatted."))
