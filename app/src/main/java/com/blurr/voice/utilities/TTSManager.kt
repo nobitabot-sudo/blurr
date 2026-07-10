@@ -317,24 +317,11 @@ class TTSManager private constructor(private val context: Context) : TextToSpeec
 
     private suspend fun speak(text: String) {
         try {
-            val selectedVoice = VoicePreferenceManager.getSelectedVoice(context)
-            
-            // Smart chunking: Break text into sentences of ~50 words each
-            val textChunks = chunkTextIntoSentences(text, maxWordsPerChunk = 50)
-
-            if (textChunks.size == 1) {
-                // Single chunk - process normally
-                speakChunk(textChunks[0].trim(), selectedVoice)
-            } else {
-                // Multiple chunks - use smart queue-based playback
-                playWithSmartQueue(textChunks, selectedVoice)
-            }
-
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e // Re-throw cancellation to stop execution
-            Log.e("TTSManager", "Google TTS failed: ${e.message}. Falling back to native engine.")
             isNativeTtsInitialized.await()
             nativeTts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, this.hashCode().toString())
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            Log.e("TTSManager", "Native TTS failed: ${e.message}")
         }
     }
     
