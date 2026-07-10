@@ -32,6 +32,17 @@ class TaskLogsListActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val recyclerView = findViewById<RecyclerView>(R.id.taskLogsRecyclerView)
+        val logs = TaskLogger.getLogs(this)
+        recyclerView.adapter = TaskLogsAdapter(logs) { log ->
+            val intent = Intent(this, TaskLogDetailsActivity::class.java)
+            intent.putExtra("uid", log.uid)
+            startActivity(intent)
+        }
+    }
+
     class TaskLogsAdapter(
         private val logs: List<TaskLog>,
         private val onClick: (TaskLog) -> Unit
@@ -45,7 +56,6 @@ class TaskLogsListActivity : AppCompatActivity() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(android.R.layout.simple_list_item_2, parent, false)
-            // Customize text colors for dark theme
             view.findViewById<TextView>(android.R.id.text1).setTextColor(0xFFFFFFFF.toInt())
             view.findViewById<TextView>(android.R.id.text2).setTextColor(0xFFAAAAAA.toInt())
             return ViewHolder(view)
@@ -55,7 +65,7 @@ class TaskLogsListActivity : AppCompatActivity() {
             val log = logs[position]
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             holder.textTimestamp.text = dateFormat.format(Date(log.timestamp))
-            holder.textSummary.text = log.input.take(100) + "..." // Show preview of input
+            holder.textSummary.text = log.input.take(100) + "..."
             holder.itemView.setOnClickListener { onClick(log) }
         }
 
