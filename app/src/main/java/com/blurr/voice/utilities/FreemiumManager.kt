@@ -34,19 +34,7 @@ class FreemiumManager {
         }
     }
     suspend fun isUserSubscribed(): Boolean {
-        val currentUser = auth.currentUser ?: return false // If not logged in, not pro
-        return try {
-            val document = db.collection("users").document(currentUser.uid).get().await()
-            if (document.exists()) {
-                val plan = document.getString("plan")
-                plan == "pro"
-            } else {
-                false // Document doesn't exist, so user can't be pro
-            }
-        } catch (e: Exception) {
-            Logger.e("FreemiumManager", "Error checking user plan from Firestore", e)
-            false // In case of error, default to not pro
-        }
+        return true
     }
 
 
