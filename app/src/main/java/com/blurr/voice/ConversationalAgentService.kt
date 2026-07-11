@@ -366,6 +366,14 @@ class ConversationalAgentService : Service() {
         pandaStateManager.setState(PandaState.SPEAKING)
         speechCoordinator.speakText(text)
         Log.d("ConvAgent", "Panda said: $text")
+        if (draw) {
+            OverlayDispatcher.show(
+                text = text,
+                priority = com.blurr.voice.overlay.OverlayPriority.TASKS,
+                duration = 6000L,
+                position = com.blurr.voice.overlay.OverlayPosition.TOP
+            )
+        }
         // --- CHANGE 4: Check if we are in text mode before starting to listen ---
         if (isTextModeActive) {
             Log.d("ConvAgent", "In text mode, ensuring input box is visible and skipping voice listening.")
@@ -752,7 +760,7 @@ class ConversationalAgentService : Service() {
         } else {
             """
             ### Memory Status ###
-            Memory system is temporarily disabled. Panda cannot remember or learn from previous conversations at this time.
+            Memory system is temporarily disabled. Zara cannot remember or learn from previous conversations at this time.
             some memories added by developers
             {memory_context}
             ### End Memory Status ###
@@ -760,7 +768,7 @@ class ConversationalAgentService : Service() {
         }
 
         val systemPrompt = """
-            You are a helpful voice assistant called Panda that can either have a conversation or ask an executor to execute tasks on the user's phone.
+            You are a helpful voice assistant called Zara that can either have a conversation or ask an executor to execute tasks on the user's phone.
             The executor can speak, listen, see the screen, tap the screen, and basically use the phone as a normal human would.
 
             {agent_status_context}
